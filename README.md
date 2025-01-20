@@ -1,93 +1,145 @@
-# PWAlife
+<div align="center">
+<img src="https://rajarakoto.github.io/github-docs/boilerplate/react-boilerplate.jpg">
+</div>
 
+# react-boilerplate 🚀
 
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/for-you.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://forthebadge.com) [![forthebadge](https://rajarakoto.github.io/github-docs/badge/build-by.svg)](https://forthebadge.com)
 
-## Getting started
+![Git](https://img.shields.io/badge/-Git-777?style=flat&logo=git&logoColor=F05032&labelColor=ffffff) ![Gitub](https://img.shields.io/badge/-Gitub-777?style=flat&logo=github&logoColor=777&labelColor=ffffff)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+**Developer Ready: A comprehensive template. Works out of the box for most React.js projects. This project is intended to be used with the latest active release of React.js.**
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Instant Value - All basic tools included and configured:
 
-## Add your files
+- 🚀 Typescript >= 5.5.4
+- 🌐 React.js >= 18.3.1
+- 🧅 Use Bun as package manager
+- 🌈 ESM
+- 🧹 ESlint with some initial rules recommendation
+- 🧪 Biome for code formatting and linting
+- ✅ Jest or Bun test for fast unit testing and code coverage
+- 📚 Type definitions for Bun.js and Jest
+- 🎨 Prettier to enforce consistent code style
+- ⚙️ EditorConfig for consistent coding style
+- 📦 NPM scripts for common operations
+- 📝 Simple example of Tsx code
+- 🐗 Run tasks with Grunt (example for backup)
+- 🖥️ Ungit for version control (git) with a GUI
+- ⚡ Use Vite for lightning fast HMR (hot reload)
+- ⚡ Optimized build by Vite
+- 🧪 E2E test with Playwright
+- 🐳 Containerization for easy deployment and scaling with Docker
+- 🧺 Pre-configured setup for Redux or Zustand as state manager, easily removable if not needed
+- 🌀 Tailwind CSS already set up with PostCSS for flexible usage
+- 🩷 Sass extends CSS with features like variables, nested rules, mixins, imports, inheritance, built-in functions, and more ...
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+> You can customize your website faster with [PLUM](https://github.com/RajaRakoto/plum), a mixins toolset powered by SASS. Quickly produce consistent, scalable CSS output, regardless of project size. For the best experience, it is recommended to use SASS version `1.77.6` to ensure smooth integration with PLUM.
 
+---
+
+### 📌 Usage
+
+To use this template, use the following commands:
+
+```bash
+bun create github.com/RajaRakoto/react-boilerplate <project-name>
+cd <project-name>
+bun run pkg-upgrade # to upgrade outdated dependencies in interactive mode
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/front6014338/pwalife.git
-git branch -M main
-git push -uf origin main
+
+> 1. This starter kit uses the MIT license with my name and GitHub profile—update or remove if needed.
+> 2. Each subdirectory in `src` has a `README.md` to explain its structure.
+> 3. Adjust the `package.json` (name, description, author, etc.) to fit your project.
+
+---
+
+### 📌 Deployment
+
+Instructions are provided for deploying both with and without Docker. Both options still require a platform to host the application.
+
+**Without Docker**: Deploying is as easy as running the following command and pointing your web server to the generated `index.html` file found at `dist/index.html`
+
+```bash
+bun run build
 ```
 
-## Integrate with your tools
+**With Docker**: A Dockerfile with an [NGINX](https://www.nginx.com/) base image is also provided for quick and easy deployments. Simply execute the following commands:
 
-- [ ] [Set up project integrations](https://gitlab.com/front6014338/pwalife/-/settings/integrations)
+```bash
+bun run build
+docker build . -t <container_name> # eg: docker build . -t todo-app
+docker run  -p <port_number>:80 <container_name> # eg: docker run todo-app -p 8080:80
+```
 
-## Collaborate with your team
+---
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### 📌 NPM Scripts
 
-## Test and Deploy
+**Preview**
 
-Use the built-in continuous integration in GitLab.
+- 📜 `preview` - Run your app with preview mode.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+**Clean**
 
-***
+- 📜 `clean` - Remove coverage data, prod folder, playwright-report ...
 
-# Editing this README
+**Development**
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+- 📜 `dev` - Launch Vite.js development server using hot module remplacement (HMR).
 
-## Suggestions for a good README
+**Build**
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+- 📜 `build` - Build faster with Vite.js.
 
-## Name
-Choose a self-explaining name for your project.
+**Testing**
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+- 📜 `test:unit` - Run unit testing with Bun.js.
+- 📜 `test:unit:watch` - Interactive watch mode to automatically re-run unit testing with Bun.js.
+- 📜 `test:e2e` - Run end to end (e2e) testing with Playwright.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+**Linting and Formatting**
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- 📜 `biome:start` - Starts the Biome daemon server. You can specify a custom configuration file path using the `--config-path` option.
+- 📜 `biome:stop` - Stops the Biome daemon server.
+- 📜 `biome:fix` - Runs a source code check and applies automatic fixes (linter & formatter) according to the defined rules.
+- 📜 `biome:unsafe` - Works like `biome:fix`, but may apply more invasive or risky changes.
+- 📜 `eslint` - Lints the project with ESLint and reports unhandled errors.
+- 📜 `prettier` - Formats code according to the `.prettierrc` rules.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+**Backup and Dependency Management**
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+- 📜 `backup` - Backup files with Grunt.
+- 📜 `pkg-check` - Check useless dependencies with depcheck.
+- 📜 `pkg-upgrade` - Upgrade outdated dependencies (interactive mode) with npm-check-updates.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+**Versioning**
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+- 📜 `versioning` - Start ungit server.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+**NPM Commands**
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+- 📜 `npm-version:major` - Increments the major version number of your project using npm.
+- 📜 `npm-version:minor` - Increments the minor version number of your project using npm.
+- 📜 `npm-version:patch` - Increments the version patch number of your project using npm.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+**NVM**
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+- 📜 `nvm` - Manage multiple node.js versions. Easily switch between node versions per project to ensure compatibility.
 
-## License
-For open source projects, say how it is licensed.
+**Scripts**
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- 📜 `script:sass-charset` - Adds the @charset "UTF-8" declaration at the beginning of all SCSS files in the project.
+
+---
+
+### 📌 Similar
+
+You can also check out my other starter projects:
+
+- 🚀 [bun-boilerplate](https://github.com/RajaRakoto/bun-boilerplate)
+- 🚀 [node-boilerplate](https://github.com/RajaRakoto/node-boilerplate)
+- 🚀 [next-boilerplate](https://github.com/RajaRakoto/next-boilerplate)
+- 🚀 [qwik-boilerplate](https://github.com/RajaRakoto/qwik-boilerplate)
+- 🚀 [vscode-boilerplate](https://github.com/RajaRakoto/vscode-boilerplate)
+- 🚀 [cli-boilerplate](https://github.com/RajaRakoto/cli-boilerplate)

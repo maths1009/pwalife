@@ -1,0 +1,3 @@
+bun run nvm
+bun install
+bun run pkg-upgrade
