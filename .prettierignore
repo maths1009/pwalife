@@ -27,3 +27,6 @@ jspm_packages
 package.json
 backups
 tmp
+
+# File routing
+src/routeTree.gen.ts

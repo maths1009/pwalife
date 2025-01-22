@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 
 type PkgDep = Record<string, string>;
 
@@ -14,7 +15,7 @@ const { dependencies = {}, devDependencies = {} } = pkg as any as {
 errorOnDuplicatesPkgDeps(devDependencies, dependencies);
 
 export default defineConfig({
-	plugins: [react(), tsconfigPaths()],
+	plugins: [react(), tsconfigPaths(), TanStackRouterVite()],
 	server: {
 		host: false,
 		strictPort: true,
