@@ -45,11 +45,10 @@
 		"e2e",
 		"tests",
 		"scripts",
-		"./*.cjs",
-		"./*.mjs",
-		"./*.mts",
-		"./*.js",
-		"./*.ts"
+		"**/*.mts",
+		"**/*.ts",
+		"./",
+		".storybook/**/*"
 	],
 	"exclude": ["./node_modules"]
 }

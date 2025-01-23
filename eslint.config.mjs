@@ -45,7 +45,6 @@ export default [
 			sourceType: "module",
 
 			parserOptions: {
-				tsconfigRootDir: "/Users/mathisbrangeon/Documents/DEV/FRONT/pwalife",
 				project: ["./tsconfig.json"],
 
 				ecmaFeatures: {
