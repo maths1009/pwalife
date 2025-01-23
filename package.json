@@ -1,23 +1,15 @@
 {
-  "name": "react-boilerplate",
+  "name": "pwa-life",
   "version": "1.0.0",
-  "description": "Minimalistic boilerplate to quick-start React.js development in TypeScript, optimized for blazing-fast performance with Bun & Vite 🚀",
-  "author": "Raja Rakotonirina <raja.rakoto7@gmail.com>",
   "license": "MIT",
   "type": "module",
   "files": [
     "dist"
   ],
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/RajaRakoto/react-boilerplate.git"
-  },
-  "homepage": "https://github.com/RajaRakoto/react-boilerplate#readme",
-  "bugs": "https://github.com/RajaRakoto/react-boilerplate/issues",
-  "engines-annotation": "Require React 19 or higher",
+  "packageManager": "bun@1.1.45",
+  "engines-annotation": "Node 23.6.0 or later is required",
   "engines": {
-    "react": ">=19"
+    "node": ">=23.6.0"
   },
   "scripts": {
     "preview": "vite preview",

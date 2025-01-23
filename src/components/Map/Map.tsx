@@ -1,10 +1,10 @@
-import MarkerClusterGroup from "react-leaflet-cluster";
 import type {
-	TileLayerProps,
 	MapContainerProps,
 	MarkerProps as MarkerPropsRL,
 	PopupProps as PopupPropsRL,
+	TileLayerProps,
 } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-cluster";
 
 import {
 	MapContainer,
@@ -46,5 +46,5 @@ type PopupProps = PopupPropsRL;
 const Popup = PopupRL;
 Popup.displayName = "Popup";
 
-export { Root, Map, Group, Marker, Popup };
-export type { RootProps, MapProps, GroupProps, MarkerProps, PopupProps };
+export { Group, Map, Marker, Popup, Root };
+export type { GroupProps, MapProps, MarkerProps, PopupProps, RootProps };
