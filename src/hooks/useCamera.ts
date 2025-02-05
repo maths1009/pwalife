@@ -1,9 +1,12 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
-export const useCamera = () => {
+type UseCameraProps = {
+	onSuccess?: (photoBase64: string) => void;
+	onError?: (error: string) => void;
+};
+
+const useCamera = ({ onSuccess, onError }: UseCameraProps = {}) => {
 	const videoRef = useRef<HTMLVideoElement | null>(null);
-	const [photo, setPhoto] = useState<string | null>(null);
-	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		return () => stopCamera();
@@ -16,7 +19,7 @@ export const useCamera = () => {
 			});
 			if (videoRef.current) videoRef.current.srcObject = stream;
 		} catch {
-			setError("Accès à la caméra refusé.");
+			onError?.("Accès à la caméra refusé.");
 		}
 	};
 
@@ -36,9 +39,12 @@ export const useCamera = () => {
 
 		if (ctx) {
 			ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-			setPhoto(canvas.toDataURL("image/png"));
+			const photoBase64 = canvas.toDataURL("image/png");
+			onSuccess?.(photoBase64);
 		}
 	};
 
-	return { videoRef, photo, error, startCamera, takePhoto, stopCamera };
+	return { videoRef, startCamera, takePhoto, stopCamera };
 };
+
+export { useCamera };
