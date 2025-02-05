@@ -1,5 +1,5 @@
 import * as RadixDialog from "@radix-ui/react-dialog";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 /* ROOT */
 type RootProps = { children: ReactNode };
