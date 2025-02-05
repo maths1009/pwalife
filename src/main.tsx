@@ -5,7 +5,7 @@ import "@/styles/index.scss";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import { Bounce, ToastContainer } from "react-toastify";
-import { useImageStore } from "./stores/ImageStore";
+import { useImageStore } from "./stores";
 
 const rootElement = document.getElementById("root");
 

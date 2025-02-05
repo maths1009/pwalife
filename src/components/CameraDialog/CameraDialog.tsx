@@ -1,7 +1,7 @@
 import { Dialog as DialogComponent } from "@/components/Dialog";
 import { useLocation } from "@/hooks";
 import { useCamera } from "@/hooks/useCamera";
-import { useImageStore } from "@/stores/ImageStore";
+import { useImageStore } from "@/stores";
 import { toast } from "react-toastify";
 
 interface CameraDialogProps {
