@@ -2,14 +2,15 @@ import { CameraDialog, Footer } from "@/components";
 import { createRootRoute } from "@tanstack/react-router";
 
 import { Map } from "@/components";
-import { useBattery, useLocation } from "@/hooks";
+import { useBattery, useLocation, useVibration } from "@/hooks";
 import { useImageStore } from "@/stores";
 import { getGeographicCenter } from "@/utils";
+import { toast } from "react-toastify";
 
 const RootComponent = () => {
 	const { location } = useLocation({ onError: console.error });
-
 	const { level, charging } = useBattery();
+	const { vibrate } = useVibration({ onError: toast.error });
 
 	const images = useImageStore.use.images();
 
@@ -51,6 +52,8 @@ const RootComponent = () => {
 					🔋 {level !== undefined && `${level.toFixed(0)}%`}
 					{!!charging && " (en charge)"}
 				</Footer.Item>
+
+				<Footer.Item onClick={() => vibrate(200)}>📳 Vibration</Footer.Item>
 			</Footer.Root>
 		</div>
 	);
