@@ -5,6 +5,7 @@ import "@/styles/index.scss";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import { Bounce, ToastContainer } from "react-toastify";
+import { useImageStore } from "./stores/ImageStore";
 
 const rootElement = document.getElementById("root");
 
@@ -12,6 +13,8 @@ const router = createRouter({
 	routeTree,
 	defaultPreload: "intent",
 });
+
+useImageStore.getState().loadImages();
 
 if (rootElement) {
 	ReactDOM.createRoot(rootElement).render(

@@ -1,14 +1,24 @@
 import { Dialog as DialogComponent } from "@/components/Dialog";
+import { useLocation } from "@/hooks";
 import { useCamera } from "@/hooks/useCamera";
-import { toast } from "react-toastify/unstyled";
+import { useImageStore } from "@/stores/ImageStore";
+import { toast } from "react-toastify";
 
 interface CameraDialogProps {
 	children: React.ReactNode;
 }
 
 const Dialog: React.FC<CameraDialogProps> = ({ children }) => {
+	const addImage = useImageStore.use.addImage();
+
+	const { location } = useLocation();
+
 	const { videoRef, startCamera, takePhoto, stopCamera } = useCamera({
 		onError: toast.error,
+		onSuccess: async (image) => {
+			await addImage(image, location);
+			toast.success("Photo prise et sauvegarder avec succès !");
+		},
 	});
 
 	return (
