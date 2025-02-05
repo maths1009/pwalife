@@ -1,22 +1,30 @@
 import { useEffect, useState } from "react";
 
-const useLocation = () => {
+type UseLocationProps = {
+	onSuccess?: (location: [number, number]) => void;
+	onError?: (error: string) => void;
+};
+
+const useLocation = ({ onSuccess, onError }: UseLocationProps = {}) => {
 	const [location, setLocation] = useState<[number, number] | null>(null);
-	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		if (!("geolocation" in navigator)) {
-			setError("La géolocalisation n'est pas supportée.");
+			onError?.("La géolocalisation n'est pas supportée.");
 			return;
 		}
 
 		navigator.geolocation.getCurrentPosition(
-			({ coords }) => setLocation([coords.latitude, coords.longitude]),
-			(err) => setError(err.message),
+			({ coords }) => {
+				const l: [number, number] = [coords.latitude, coords.longitude];
+				setLocation(l);
+				onSuccess?.(l);
+			},
+			(err) => onError?.(err.message),
 		);
-	}, []);
+	}, [onError, onSuccess]);
 
-	return { location, error };
+	return { location };
 };
 
 export { useLocation };
