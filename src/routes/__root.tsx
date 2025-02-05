@@ -7,7 +7,7 @@ import { useImageStore } from "@/stores";
 import { getGeographicCenter } from "@/utils";
 
 const RootComponent = () => {
-	const { location } = useLocation();
+	const { location } = useLocation({ onError: console.error });
 
 	const images = useImageStore.use.images();
 

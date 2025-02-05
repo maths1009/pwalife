@@ -13,9 +13,9 @@
   },
   "scripts": {
     "preview": "vite preview",
-    "clean": "rimraf build dist coverage playwright-report",
+    "clean": "rimraf build dist coverage playwright-report dev-dist",
     "dev": "vite",
-    "build": "bun run clean && tsc -b && rimraf vite.config.js && vite build",
+    "build": "bun run clean && tsc -b && pwa-assets-generator --preset minimal-2023 public/favicon.svg && rimraf vite.config.js && vite build",
     "test:unit": "bun test ./tests/*.test.ts",
     "test:unit:watch": "bun test --watch ./tests/*.test.ts",
     "test:e2e": "rimraf playwright-report && playwright test ./e2e/*.spec.ts",
@@ -46,6 +46,7 @@
     "react-leaflet-cluster": "^2.1.0",
     "react-toastify": "^11.0.3",
     "tailwind-merge": "^3.0.1",
+    "vite-plugin-pwa": "^0.21.1",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
@@ -71,6 +72,7 @@
     "@types/react-dom": "^19.0.3",
     "@typescript-eslint/eslint-plugin": "8.20.0",
     "@typescript-eslint/parser": "8.20.0",
+    "@vite-pwa/assets-generator": "^0.2.6",
     "@vitejs/plugin-react-swc": "^3.7.2",
     "autoprefixer": "^10.4.20",
     "commitlint-config-gitmoji": "^2.3.1",

@@ -67,9 +67,16 @@ export default [
 			"prefer-spread": "off",
 			"no-case-declarations": "off",
 			"no-console": "off",
-			"@typescript-eslint/no-unused-vars": ["warn"],
 			"@typescript-eslint/consistent-type-imports": "warn",
 			"@typescript-eslint/no-unnecessary-condition": "warn",
+
+			"@typescript-eslint/no-unused-vars": [
+				"warn",
+				{
+					argsIgnorePattern: "^_",
+					varsIgnorePattern: "^_",
+				},
+			],
 
 			"react-refresh/only-export-components": [
 				"warn",

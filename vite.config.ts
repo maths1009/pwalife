@@ -3,6 +3,8 @@ import react from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import { VitePWA } from "vite-plugin-pwa";
+import { manifest } from "./src/manifest";
 
 type PkgDep = Record<string, string>;
 
@@ -15,10 +17,14 @@ const { dependencies = {}, devDependencies = {} } = pkg as any as {
 errorOnDuplicatesPkgDeps(devDependencies, dependencies);
 
 export default defineConfig({
-	plugins: [react(), tsconfigPaths(), TanStackRouterVite()],
+	plugins: [react(), tsconfigPaths(), TanStackRouterVite(), VitePWA(manifest)],
 	server: {
 		host: false,
 		strictPort: true,
+		https: {
+			key: "localhost-key.pem",
+			cert: "localhost.pem",
+		},
 	},
 	css: {
 		devSourcemap: false,

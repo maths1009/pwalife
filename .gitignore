@@ -97,3 +97,8 @@ backups
 tmp
 
 *storybook.log
+
+# local perm files for testing https
+*.pem
+
+dev-dist
