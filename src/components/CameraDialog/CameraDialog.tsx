@@ -1,12 +1,15 @@
 import { Dialog as DialogComponent } from "@/components/Dialog";
 import { useCamera } from "@/hooks/useCamera";
+import { toast } from "react-toastify/unstyled";
 
 interface CameraDialogProps {
 	children: React.ReactNode;
 }
 
 const Dialog: React.FC<CameraDialogProps> = ({ children }) => {
-	const { videoRef, startCamera, takePhoto, stopCamera } = useCamera();
+	const { videoRef, startCamera, takePhoto, stopCamera } = useCamera({
+		onError: toast.error,
+	});
 
 	return (
 		<DialogComponent.Root>
