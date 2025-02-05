@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { JSX, ReactNode } from "react";
 
 /* ROOT */
 type RootProps = { children: ReactNode };
@@ -10,9 +10,11 @@ const Root = ({ children }: RootProps) => (
 Root.displayName = "FooterRoot";
 
 /* ITEM */
-type ItemProps = { children: ReactNode };
-const Item = ({ children }: ItemProps) => (
-	<button className="rounded-lg bg-gray-200 px-4 py-2">{children}</button>
+type ItemProps = Omit<JSX.IntrinsicElements["button"], "className">;
+const Item = ({ children, ...props }: ItemProps) => (
+	<button {...props} className="rounded-lg bg-gray-200 px-4 py-2">
+		{children}
+	</button>
 );
 Item.displayName = "FooterItem";
 
