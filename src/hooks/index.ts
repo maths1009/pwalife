@@ -1,3 +1,4 @@
+export * from "./useBattery";
 export * from "./useCamera";
 export * from "./useLocation";
 export * from "./useNotification";

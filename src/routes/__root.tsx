@@ -2,12 +2,14 @@ import { CameraDialog, Footer } from "@/components";
 import { createRootRoute } from "@tanstack/react-router";
 
 import { Map } from "@/components";
-import { useLocation } from "@/hooks";
+import { useBattery, useLocation } from "@/hooks";
 import { useImageStore } from "@/stores";
 import { getGeographicCenter } from "@/utils";
 
 const RootComponent = () => {
 	const { location } = useLocation({ onError: console.error });
+
+	const { level, charging } = useBattery();
 
 	const images = useImageStore.use.images();
 
@@ -44,6 +46,11 @@ const RootComponent = () => {
 				<CameraDialog.Dialog>
 					<Footer.Item>📷 Photo</Footer.Item>
 				</CameraDialog.Dialog>
+
+				<Footer.Item>
+					🔋 {level !== undefined && `${level.toFixed(0)}%`}
+					{!!charging && " (en charge)"}
+				</Footer.Item>
 			</Footer.Root>
 		</div>
 	);
