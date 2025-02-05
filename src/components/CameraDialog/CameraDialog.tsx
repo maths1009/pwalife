@@ -1,5 +1,5 @@
 import { Dialog as DialogComponent } from "@/components/Dialog";
-import { useLocation } from "@/hooks";
+import { useLocation, useNotification } from "@/hooks";
 import { useCamera } from "@/hooks/useCamera";
 import { useImageStore } from "@/stores";
 import { toast } from "react-toastify";
@@ -13,11 +13,13 @@ const Dialog: React.FC<CameraDialogProps> = ({ children }) => {
 
 	const { location } = useLocation();
 
+	const { sendNotification } = useNotification();
+
 	const { videoRef, startCamera, takePhoto, stopCamera } = useCamera({
 		onError: toast.error,
 		onSuccess: async (image) => {
 			await addImage(image, location);
-			toast.success("Photo prise et sauvegarder avec succès !");
+			sendNotification("success", "Photo prise et sauvegarder avec succès !");
 		},
 	});
 
