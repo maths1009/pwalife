@@ -85,12 +85,13 @@ jobs:
           path: dist
           key: build-${{ runner.os }}-${{ github.sha }}
 
-      - name: 📦 Copy files to the server via SCP
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATEKEY }}
-          source: "dist/*"
-          target: "."
-          strip_components: 1
+      - name: 🔑 Install SSH client
+        run: sudo apt-get update && sudo apt-get install -y openssh-client
+
+      - name: 🚀 Deploy via SSH
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PASS: ${{ secrets.SSH_PASS }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+        run: |
+          sshpass -p "$SSH_PASS" rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" dist/ $SSH_USERNAME@$SSH_HOST:./
