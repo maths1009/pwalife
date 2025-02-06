@@ -1,0 +1,99 @@
+name: Tests & Linting
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  setup:
+    name: 🔧 Setup Bun & Codebase
+    runs-on: ubuntu-latest
+    outputs:
+      cache-hit: ${{ steps.cache.outputs.cache-hit }}
+
+    steps:
+      - name: 📥 Checkout du repository (une seule fois)
+        uses: actions/checkout@v4
+
+      - name: 🏗️ Installer Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 📦 Récupérer le cache des dépendances
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.bun
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb') }}
+          restore-keys: |
+            bun-${{ runner.os }}-
+
+      - name: 📦 Installer les dépendances (si nécessaire)
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: bun install --frozen-lockfile
+
+      - name: 📁 Sauvegarder le repo et l'environnement Bun
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.bun
+            ${{ github.workspace }}
+          key: bun-env-codebase-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            bun-env-codebase-${{ runner.os }}-
+
+  lint:
+    name: ✨ Lint
+    runs-on: ubuntu-latest
+    needs: setup
+
+    steps:
+      - name: 📥 Restaurer le repo et Bun
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.bun
+            ${{ github.workspace }}
+          key: bun-env-codebase-${{ runner.os }}-${{ github.sha }}
+
+      - name: ✨ Linter le code
+        run: bun run eslint
+
+  test_unit:
+    name: 🧪 Tests unitaires
+    runs-on: ubuntu-latest
+    needs: setup
+
+    steps:
+      - name: 📥 Restaurer le repo et Bun
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.bun
+            ${{ github.workspace }}
+          key: bun-env-codebase-${{ runner.os }}-${{ github.sha }}
+
+      - name: 🧪 Exécuter les tests unitaires
+        run: bun run test:unit
+
+  test_e2e:
+    name: 🕵️ Tests E2E
+    runs-on: ubuntu-latest
+    needs: setup
+
+    steps:
+      - name: 📥 Restaurer le repo et Bun
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.bun
+            ${{ github.workspace }}
+          key: bun-env-codebase-${{ runner.os }}-${{ github.sha }}
+
+      - name: 🕵️ Exécuter les tests E2E
+        run: bun run test:e2e

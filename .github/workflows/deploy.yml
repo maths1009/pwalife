@@ -1,0 +1,89 @@
+name: Build & Deploy
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  setup:
+    name: 🔧 Setup Bun & Codebase
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - name: 📥 Checkout du repository (une seule fois)
+        uses: actions/checkout@v4
+
+      - name: 🏗️ Installer Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 📦 Récupérer le cache des dépendances
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.bun
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb') }}
+          restore-keys: |
+            bun-${{ runner.os }}-
+
+      - name: 📦 Installer les dépendances (si nécessaire)
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: bun install --frozen-lockfile
+
+      - name: 📁 Sauvegarder le repo et Bun
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.bun
+            ${{ github.workspace }}
+          key: bun-env-codebase-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            bun-env-codebase-${{ runner.os }}-
+
+  build:
+    name: 🏗️ Build App
+    runs-on: ubuntu-latest
+    needs: setup
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - name: 📥 Restaurer le repo et Bun
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.bun
+            ${{ github.workspace }}
+          key: bun-env-codebase-${{ runner.os }}-${{ github.sha }}
+
+      - name: 🏗️ Build du projet
+        run: bun run build
+
+      - name: 🗂️ Sauvegarde du build pour le déploiement
+        uses: actions/cache@v3
+        with:
+          path: dist
+          key: build-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            build-${{ runner.os }}-
+
+  deploy:
+    name: 🚀 Deploy App
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - name: 📥 Restaurer le build du cache
+        uses: actions/cache@v3
+        with:
+          path: dist
+          key: build-${{ runner.os }}-${{ github.sha }}
+
+      - name: 🚀 Déploiement
+        run: |
+          echo "Déploiement en cours..."
