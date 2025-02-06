@@ -10,8 +10,10 @@ on:
 
 jobs:
   setup:
-    name: 🔧 Setup Bun & Install Dependencies
+    name: 🔧 Setup Bun & Cache Dependencies
     runs-on: ubuntu-latest
+    outputs:
+      cache-hit: ${{ steps.cache.outputs.cache-hit }}
 
     steps:
       - name: 📥 Checkout repository
@@ -22,16 +24,39 @@ jobs:
         with:
           bun-version: latest
 
-      - name: 📦 Install dependencies
+      - name: 📦 Restore dependency cache
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            bun.lockb
+          key: bun-deps-${{ runner.os }}-${{ hashFiles('bun.lockb') }}
+          restore-keys: |
+            bun-deps-${{ runner.os }}-
+
+      - name: 📦 Install dependencies (if not cached)
+        if: steps.cache.outputs.cache-hit != 'true'
         run: bun install --frozen-lockfile
+
+      - name: 📁 Cache repository & dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}
+          key: repo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            repo-${{ runner.os }}-
 
   lint:
     name: ✨ Linting
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
+      - name: 📥 Restore repository & dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}
+          key: repo-${{ runner.os }}-${{ github.sha }}
 
       - name: 🏗️ Install Bun
         uses: oven-sh/setup-bun@v2
@@ -46,8 +71,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
+      - name: 📥 Restore repository & dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}
+          key: repo-${{ runner.os }}-${{ github.sha }}
 
       - name: 🏗️ Install Bun
         uses: oven-sh/setup-bun@v2
@@ -62,8 +90,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
+      - name: 📥 Restore repository & dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}
+          key: repo-${{ runner.os }}-${{ github.sha }}
 
       - name: 🏗️ Install Bun
         uses: oven-sh/setup-bun@v2
