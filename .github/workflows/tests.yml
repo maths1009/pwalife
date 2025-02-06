@@ -16,15 +16,15 @@ jobs:
       cache-hit: ${{ steps.cache.outputs.cache-hit }}
 
     steps:
-      - name: 📥 Checkout du repository (une seule fois)
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: 🏗️ Installer Bun
+      - name: 🏗️ Install Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
-      - name: 📦 Récupérer le cache des dépendances
+      - name: 📦 Restore dependencies cache
         id: cache
         uses: actions/cache@v3
         with:
@@ -33,10 +33,13 @@ jobs:
           restore-keys: |
             bun-${{ runner.os }}-
 
-      - name: 📦 Installer les dépendances (si nécessaire)
+      - name: 📦 Install dependencies (if needed)
         run: bun install --frozen-lockfile
 
-      - name: 📁 Sauvegarder le repo et l’environnement Bun
+      - name: 🔧 Add Bun to PATH globally
+        run: echo "$HOME/.bun/bin" >> $GITHUB_PATH
+
+      - name: 📁 Save repository and Bun environment
         uses: actions/cache@v3
         with:
           path: |
@@ -47,11 +50,11 @@ jobs:
             bun-env-codebase-${{ runner.os }}-
 
   lint:
-    name: ✨ Lint
+    name: ✨ Linting
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - name: 📥 Restaurer le repo et Bun
+      - name: 📥 Restore repository and Bun
         uses: actions/cache@v3
         with:
           path: |
@@ -59,18 +62,15 @@ jobs:
             ${{ github.workspace }}
           key: bun-env-codebase-${{ runner.os }}-${{ github.sha }}
 
-      - name: 🔧 Ajouter Bun au PATH
-        run: echo "$HOME/.bun/bin" >> $GITHUB_PATH
-
-      - name: ✨ Linter le code
+      - name: ✨ Run ESLint
         run: bun run eslint
 
   test_unit:
-    name: 🧪 Tests unitaires
+    name: 🧪 Unit Tests
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - name: 📥 Restaurer le repo et Bun
+      - name: 📥 Restore repository and Bun
         uses: actions/cache@v3
         with:
           path: |
@@ -78,18 +78,15 @@ jobs:
             ${{ github.workspace }}
           key: bun-env-codebase-${{ runner.os }}-${{ github.sha }}
 
-      - name: 🔧 Ajouter Bun au PATH
-        run: echo "$HOME/.bun/bin" >> $GITHUB_PATH
-
-      - name: 🧪 Exécuter les tests unitaires
+      - name: 🧪 Run Unit Tests
         run: bun run test:unit
 
   test_e2e:
-    name: 🕵️ Tests E2E
+    name: 🕵️ E2E Tests
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - name: 📥 Restaurer le repo et Bun
+      - name: 📥 Restore repository and Bun
         uses: actions/cache@v3
         with:
           path: |
@@ -97,8 +94,8 @@ jobs:
             ${{ github.workspace }}
           key: bun-env-codebase-${{ runner.os }}-${{ github.sha }}
 
-      - name: 🔧 Ajouter Bun au PATH
-        run: echo "$HOME/.bun/bin" >> $GITHUB_PATH
+      - name: 📥 Install Playwright browsers
+        run: bunx playwright install --with-deps
 
-      - name: 🕵️ Exécuter les tests E2E
+      - name: 🕵️ Run E2E Tests
         run: bun run test:e2e
