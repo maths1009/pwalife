@@ -94,4 +94,4 @@ jobs:
           SSH_PASS: ${{ secrets.SSH_PASS }}
           SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
         run: |
-          sshpass -p "$SSH_PASS" rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" dist/ $SSH_USERNAME@$SSH_HOST:./
+          sshpass -p "$SSH_PASS" rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" dist/ $SSH_USERNAME@$SSH_HOST:/var/www/html/
