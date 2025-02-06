@@ -16,7 +16,7 @@ useImageStore.getState().loadImages();
 const App = () => {
 	const { sendNotification } = useNotification();
 
-	const _isOffline = useOffline({
+	useOffline({
 		onStatusChange: (isOffline) =>
 			sendNotification(
 				"info",
