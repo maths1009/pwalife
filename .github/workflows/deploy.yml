@@ -61,7 +61,7 @@ jobs:
           bun-version: latest
 
       - name: 🏗️ Build the project
-        run: bun run eslint
+        run: bun run build
 
       - name: 📁 Cache build artifacts
         uses: actions/cache@v3
