@@ -6,6 +6,7 @@ import { useBattery, useLocation, useVibration } from "@/hooks";
 import { useImageStore } from "@/stores";
 import { getGeographicCenter } from "@/utils";
 import { toast } from "react-toastify";
+import { ChatDialog } from "@/components/ChatDialog";
 
 const RootComponent = () => {
 	const { location } = useLocation({ onError: console.error });
@@ -54,6 +55,10 @@ const RootComponent = () => {
 				</Footer.Item>
 
 				<Footer.Item onClick={() => vibrate(200)}>📳 Vibration</Footer.Item>
+
+				<ChatDialog.Dialog>
+					<Footer.Item>💬 Chat</Footer.Item>
+				</ChatDialog.Dialog>
 			</Footer.Root>
 		</div>
 	);

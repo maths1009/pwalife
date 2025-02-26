@@ -21,10 +21,6 @@ export default defineConfig({
 	server: {
 		host: false,
 		strictPort: true,
-		https: {
-			key: "localhost-key.pem",
-			cert: "localhost.pem",
-		},
 	},
 	css: {
 		devSourcemap: false,
