@@ -29,6 +29,8 @@
 
 ## 🚀 Getting Started
 
+> **_NOTE:_** Install bun first, refere to [bun install setup](https://bun.sh/docs/installation)
+
 ```bash
 # Install dependencies
 bun install
