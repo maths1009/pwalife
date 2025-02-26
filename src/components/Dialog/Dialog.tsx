@@ -1,5 +1,6 @@
 import * as RadixDialog from "@radix-ui/react-dialog";
 import type { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
 /* ROOT */
 type RootProps = { children: ReactNode };
@@ -16,11 +17,16 @@ const Trigger = ({ children }: TriggerProps) => (
 Trigger.displayName = "DialogTrigger";
 
 /* CONTENT */
-type ContentProps = { children: ReactNode };
-const Content = ({ children }: ContentProps) => (
+type ContentProps = { children: ReactNode; className?: string };
+const Content = ({ children, className }: ContentProps) => (
 	<RadixDialog.Portal>
 		<RadixDialog.Overlay className="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm" />
-		<RadixDialog.Content className="fixed left-1/2 top-1/2 z-[9999] w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-6 shadow-lg">
+		<RadixDialog.Content
+			className={twMerge(
+				"fixed left-1/2 top-1/2 z-[9999] w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-6 shadow-lg",
+				className,
+			)}
+		>
 			{children}
 		</RadixDialog.Content>
 	</RadixDialog.Portal>
